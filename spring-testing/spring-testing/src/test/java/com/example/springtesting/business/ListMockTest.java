@@ -1,6 +1,7 @@
 package com.example.springtesting.business;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -27,6 +28,16 @@ public class ListMockTest {
 
 		assertEquals(5, mock.size());
 		assertEquals(10, mock.size());
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Test
+	public void withGenerParameter_values() {
+		List mock = Mockito.mock(List.class);
+		when(mock.get(anyInt())).thenReturn("toddy");
+
+		assertEquals("toddy", mock.get(5));
+		assertEquals("toddy", mock.get(10));
 	}
 
 }
