@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -54,6 +55,17 @@ public class ListMockTest {
 		verify(this.mock).get(anyInt());
 		verify(this.mock, times(1)).get(anyInt());
 		verifyNoMoreInteractions(this.mock);
+	}
+
+	@Test
+	public void argumentCapturing() {
+
+		this.mock.add("SomeString");
+
+		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+		verify(this.mock).add(captor.capture());
+
+		assertEquals("SomeString", captor.getValue());
 	}
 
 }
