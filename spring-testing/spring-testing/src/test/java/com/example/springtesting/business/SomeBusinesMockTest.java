@@ -5,44 +5,43 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.example.springtesting.data.SomeDataService;
 
+@ExtendWith(MockitoExtension.class)
 public class SomeBusinesMockTest {
+
+	@InjectMocks
+	SomeBusinesImpl businesImpl = new SomeBusinesImpl();
+
+	@Mock
+	SomeDataService mock = mock(SomeDataService.class);
 
 	@Test
 	public void calculateSumBasic() {
-		SomeBusinesImpl businesImpl = new SomeBusinesImpl();
-		SomeDataService mock = mock(SomeDataService.class);
-		when(mock.retreveAllData()).thenReturn(new int[] { 1, 2, 3 });
-		businesImpl.setDataService(mock);
 
-		int result = businesImpl.calculateSumUsingDataService();
+		when(this.mock.retreveAllData()).thenReturn(new int[] { 1, 2, 3 });
 
-		assertEquals(6, result);
+		assertEquals(6, this.businesImpl.calculateSumUsingDataService());
 	}
 
 	@Test
 	public void calculateSumEmpty() {
-		SomeBusinesImpl businesImpl = new SomeBusinesImpl();
 
-		SomeDataService mock = mock(SomeDataService.class);
-		when(mock.retreveAllData()).thenReturn(new int[] {});
-		businesImpl.setDataService(mock);
+		when(this.mock.retreveAllData()).thenReturn(new int[] {});
 
-		int result = businesImpl.calculateSumUsingDataService();
-
-		assertEquals(0, result);
+		assertEquals(0, this.businesImpl.calculateSumUsingDataService());
 	}
 
 	@Test
 	public void calculateSumOneValue() {
-		SomeBusinesImpl businesImpl = new SomeBusinesImpl();
-		SomeDataService mock = mock(SomeDataService.class);
-		when(mock.retreveAllData()).thenReturn(new int[] { 2 });
-		businesImpl.setDataService(mock);
-		int result = businesImpl.calculateSumUsingDataService();
 
-		assertEquals(2, result);
+		when(this.mock.retreveAllData()).thenReturn(new int[] { 2 });
+
+		assertEquals(2, this.businesImpl.calculateSumUsingDataService());
 	}
 }
