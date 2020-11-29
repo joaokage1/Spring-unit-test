@@ -68,4 +68,16 @@ public class ListMockTest {
 		assertEquals("SomeString", captor.getValue());
 	}
 
+	@Test
+	public void argumentCapturingMutiple() {
+
+		this.mock.add("SomeString1");
+		this.mock.add("SomeString2");
+
+		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+		verify(this.mock, times(2)).add(captor.capture());
+
+		assertEquals("SomeString1", captor.getAllValues().get(0));
+	}
+
 }
