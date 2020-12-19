@@ -1,5 +1,8 @@
 package com.example.springtesting.business;
 
+import java.util.Arrays;
+import java.util.OptionalInt;
+
 import com.example.springtesting.data.SomeDataService;
 
 public class SomeBusinesImpl {
@@ -15,11 +18,8 @@ public class SomeBusinesImpl {
 	}
 
 	public int calculateSum(int[] data) {
-		int sum = 0;
-		for (int i : data) {
-			sum += i;
-		}
-		return sum;
+		OptionalInt number = Arrays.stream(data).reduce(Integer::sum);
+		return number.orElse(0);
 	}
 
 	public int calculateSumUsingDataService() {
